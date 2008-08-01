@@ -12,22 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.controller.impl;
+package br.com.arsmachina.authentication.controller.impl;
 
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import net.sf.arsmachina.authentication.controller.PasswordEncrypter;
-import net.sf.arsmachina.authentication.controller.PermissionController;
-import net.sf.arsmachina.authentication.controller.PermissionGroupController;
-import net.sf.arsmachina.authentication.controller.UserController;
-import net.sf.arsmachina.authentication.dao.UserDAO;
-import net.sf.arsmachina.authentication.entity.Permission;
-import net.sf.arsmachina.authentication.entity.PermissionGroup;
-import net.sf.arsmachina.authentication.entity.Role;
-import net.sf.arsmachina.authentication.entity.User;
-import net.sf.arsmachina.controller.impl.SpringControllerImpl;
+import br.com.arsmachina.authentication.controller.PasswordEncrypter;
+import br.com.arsmachina.authentication.controller.PermissionController;
+import br.com.arsmachina.authentication.controller.PermissionGroupController;
+import br.com.arsmachina.authentication.controller.UserController;
+import br.com.arsmachina.authentication.dao.UserDAO;
+import br.com.arsmachina.authentication.entity.Permission;
+import br.com.arsmachina.authentication.entity.PermissionGroup;
+import br.com.arsmachina.authentication.entity.Role;
+import br.com.arsmachina.authentication.entity.User;
+import br.com.arsmachina.controller.impl.SpringControllerImpl;
+
 
 /**
  * {@link UserController} implementation.
@@ -122,7 +123,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @param login
 	 * @param password
 	 * @return
-	 * @see net.sf.arsmachina.authentication.dao.UserDAO#findByLoginAndPassword(java.lang.String, java.lang.String)
+	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLoginAndPassword(java.lang.String, java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	public User findByLoginAndPassword(String login, String password) {
@@ -133,7 +134,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * Invokes <code>dao.findByLogin()<code>.
 	 * @param login
 	 * @return
-	 * @see net.sf.arsmachina.authentication.dao.UserDAO#findByLogin(java.lang.String)
+	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLogin(java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	public User findByLogin(String login) {
@@ -145,7 +146,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @param <T>
 	 * @param roleClass
 	 * @return
-	 * @see net.sf.arsmachina.authentication.dao.UserDAO#findByRole(java.lang.Class)
+	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByRole(java.lang.Class)
 	 */
 	@Transactional(readOnly = true)
 	public <T extends Role> List<User> findByRole(Class<T> roleClass) {
@@ -153,7 +154,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	}
 
 	/**
-	 * @see net.sf.arsmachina.controller.impl.SpringControllerImpl#save(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.SpringControllerImpl#save(java.lang.Object)
 	 */
 	@Transactional
 	@Override
@@ -174,7 +175,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	}
 
 	/**
-	 * @see net.sf.arsmachina.controller.impl.SpringControllerImpl#update(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.SpringControllerImpl#update(java.lang.Object)
 	 */
 	@Override
 	@Transactional

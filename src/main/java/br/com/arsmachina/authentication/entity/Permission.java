@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.entity;
+package br.com.arsmachina.authentication.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

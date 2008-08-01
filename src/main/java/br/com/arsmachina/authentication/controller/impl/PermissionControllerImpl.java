@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.controller.impl;
+package br.com.arsmachina.authentication.controller.impl;
 
-import net.sf.arsmachina.authentication.controller.PermissionController;
-import net.sf.arsmachina.authentication.dao.PermissionDAO;
-import net.sf.arsmachina.authentication.entity.Permission;
-import net.sf.arsmachina.controller.impl.SpringControllerImpl;
+import br.com.arsmachina.authentication.controller.PermissionController;
+import br.com.arsmachina.authentication.dao.PermissionDAO;
+import br.com.arsmachina.authentication.entity.Permission;
+import br.com.arsmachina.controller.impl.SpringControllerImpl;
 
 /**
  * {@link PermissionController} implementation.
@@ -43,7 +43,7 @@ public class PermissionControllerImpl extends SpringControllerImpl<Permission, I
 	 * Invokes <code>dao.findByName()<code>.
 	 * @param name a {@link String}.
 	 * @return a {@link Permission} or <code>null</code>.
-	 * @see net.sf.arsmachina.authentication.dao.PermissionDAO#findByName(java.lang.String)
+	 * @see br.com.arsmachina.authentication.dao.PermissionDAO#findByName(java.lang.String)
 	 */
 	public Permission findByName(String name) {
 		return dao.findByName(name);

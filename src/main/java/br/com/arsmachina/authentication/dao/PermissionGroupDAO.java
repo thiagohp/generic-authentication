@@ -12,21 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.controller;
+package br.com.arsmachina.authentication.dao;
 
-import net.sf.arsmachina.authentication.entity.PermissionGroup;
-import net.sf.arsmachina.controller.Controller;
+import br.com.arsmachina.authentication.entity.PermissionGroup;
+import br.com.arsmachina.dao.DAO;
 
 /**
- * Controller definition for {@link PermissionGroup}.
+ * Data access object (DAO) for {@link PermissionGroup}.
  * 
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
-public interface PermissionGroupController extends Controller<PermissionGroup, Integer> {
+public interface PermissionGroupDAO extends DAO<PermissionGroup, Integer> {
 
 	/**
-	 * Returns the permission group with the given name or <code>null</code> if there is no such
-	 * one.
+	 * Returns the permission group with the given name or <code>null</code> if there is no such one.
 	 * 
 	 * @param name a {@link String}.
 	 * @return a {@link PermissionGroup} or <code>null</code>.

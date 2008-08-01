@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.dao;
+package br.com.arsmachina.authentication.dao;
 
 import java.util.List;
 
-import net.sf.arsmachina.authentication.entity.Role;
-import net.sf.arsmachina.authentication.entity.User;
-import net.sf.arsmachina.dao.DAO;
+import br.com.arsmachina.authentication.entity.Role;
+import br.com.arsmachina.authentication.entity.User;
+import br.com.arsmachina.dao.DAO;
+
 
 /**
  * Data access object (DAO) for {@link User}.

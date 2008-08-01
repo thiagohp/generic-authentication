@@ -12,24 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.controller;
-
-import net.sf.arsmachina.authentication.entity.Permission;
-import net.sf.arsmachina.controller.Controller;
+package br.com.arsmachina.authentication.controller;
 
 /**
- * Controller definition for {@link Permission}.
+ * Interface used to encrypt passwords. It is recommended to use a secure cryptographic hash
+ * function, but any one can used (including no encrypting at all).
  * 
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
-public interface PermissionController extends Controller<Permission, Integer> {
+public interface PasswordEncrypter {
 
 	/**
-	 * Returns the permission with the given name or <code>null</code> if there is no such one.
+	 * Encrypts a <code>password</code> if it is not encrypted already.
 	 * 
-	 * @param name a {@link String}.
-	 * @return a {@link Permission} or <code>null</code>.
+	 * @param password a {@link String}. It cannot be null.
+	 * @return a {@link String}.
 	 */
-	public Permission findByName(String name);
-
+	public String encrypt(String password);
+	
 }

@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.controller;
+package br.com.arsmachina.authentication.controller;
 
 import java.util.List;
 
-import net.sf.arsmachina.authentication.entity.Role;
-import net.sf.arsmachina.authentication.entity.User;
-import net.sf.arsmachina.controller.Controller;
+import br.com.arsmachina.authentication.entity.Role;
+import br.com.arsmachina.authentication.entity.User;
+import br.com.arsmachina.controller.Controller;
+
 
 /**
  * Controller definition for {@link User}.

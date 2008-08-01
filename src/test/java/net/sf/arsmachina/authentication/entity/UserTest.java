@@ -17,12 +17,13 @@ package net.sf.arsmachina.authentication.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.arsmachina.authentication.entity.Permission;
-import net.sf.arsmachina.authentication.entity.PermissionGroup;
-import net.sf.arsmachina.authentication.entity.User;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import br.com.arsmachina.authentication.entity.Permission;
+import br.com.arsmachina.authentication.entity.PermissionGroup;
+import br.com.arsmachina.authentication.entity.User;
 
 /**
  * Test class for {@link User}.

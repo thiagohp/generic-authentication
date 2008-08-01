@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.authentication.dao;
+package br.com.arsmachina.authentication.dao;
 
-import net.sf.arsmachina.authentication.entity.Permission;
-import net.sf.arsmachina.dao.DAO;
+import br.com.arsmachina.authentication.entity.Permission;
+import br.com.arsmachina.dao.DAO;
 
 /**
  * Data access object (DAO) for {@link Permission}.
