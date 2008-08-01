@@ -16,6 +16,8 @@ package net.sf.arsmachina.authentication.controller.impl;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import net.sf.arsmachina.authentication.controller.PasswordEncrypter;
 import net.sf.arsmachina.authentication.controller.PermissionController;
 import net.sf.arsmachina.authentication.controller.PermissionGroupController;
@@ -122,6 +124,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @return
 	 * @see net.sf.arsmachina.authentication.dao.UserDAO#findByLoginAndPassword(java.lang.String, java.lang.String)
 	 */
+	@Transactional(readOnly = true)
 	public User findByLoginAndPassword(String login, String password) {
 		return dao.findByLoginAndPassword(login, password);
 	}
@@ -132,6 +135,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @return
 	 * @see net.sf.arsmachina.authentication.dao.UserDAO#findByLogin(java.lang.String)
 	 */
+	@Transactional(readOnly = true)
 	public User findByLogin(String login) {
 		return dao.findByLogin(login);
 	}
@@ -143,6 +147,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @return
 	 * @see net.sf.arsmachina.authentication.dao.UserDAO#findByRole(java.lang.Class)
 	 */
+	@Transactional(readOnly = true)
 	public <T extends Role> List<User> findByRole(Class<T> roleClass) {
 		return dao.findByRole(roleClass);
 	}
@@ -150,6 +155,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	/**
 	 * @see net.sf.arsmachina.controller.impl.SpringControllerImpl#save(java.lang.Object)
 	 */
+	@Transactional
 	@Override
 	public void save(User user) {
 
@@ -171,6 +177,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @see net.sf.arsmachina.controller.impl.SpringControllerImpl#update(java.lang.Object)
 	 */
 	@Override
+	@Transactional
 	public void update(User user) {
 		
 		encryptPassword(user);
