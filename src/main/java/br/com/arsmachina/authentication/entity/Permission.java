@@ -18,6 +18,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
@@ -28,6 +29,7 @@ import org.hibernate.validator.NotNull;
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
 @Entity
+@Table(name = "permission")
 final public class Permission implements Comparable<Permission> {
 
 	/**
@@ -47,9 +49,29 @@ final public class Permission implements Comparable<Permission> {
 
 	private Integer id;
 
-	@NotNull
-	@Length(min = MINIMUM_NAME_LENGTH, max = MAXIMUM_NAME_LENGTH)
 	private String name;
+
+	/**
+	 * No-arg constructor. 
+	 */
+	public Permission() {
+	}
+
+	/**
+	 * Constructor that receives a name.
+	 * 
+	 * @param name a {@link String}. It cannot be null.
+	 * @throws IllegalArgumentException if <code>name</code> is null.
+	 */
+	public Permission(String name) {
+		
+		if (name == null) {
+			throw new IllegalArgumentException("Parameter name cannot be null");
+		}
+		
+		this.name = name;
+		
+	}
 
 	/**
 	 * @see java.lang.Object#hashCode()
@@ -125,7 +147,9 @@ final public class Permission implements Comparable<Permission> {
 	 * 
 	 * @return a {@link String}.
 	 */
-	@Column(nullable = false, unique = true)
+	@NotNull
+	@Length(min = MINIMUM_NAME_LENGTH, max = MAXIMUM_NAME_LENGTH)
+	@Column(nullable = false, unique = true, length = MAXIMUM_NAME_LENGTH)
 	public String getName() {
 		return name;
 	}

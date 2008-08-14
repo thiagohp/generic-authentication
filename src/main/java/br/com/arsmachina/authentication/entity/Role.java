@@ -23,6 +23,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.NotNull;
@@ -35,16 +36,18 @@ import org.hibernate.validator.NotNull;
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
 @Entity
+@Table(name = "role")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Role {
 
 	private Integer id;
 
-	@NotNull
 	private User user;
 
 	/**
-	 * Returns a set of permissions all users with this role have.
+	 * Returns a immutable set of permissions all users with this role have.
+	 * The returned permissions need not come from the database: all they need is to
+	 * have their name set.
 	 * This set must be fixed.
 	 * 
 	 * @return a {@link Set} of {@link Permission}s.
@@ -79,6 +82,7 @@ public abstract class Role {
 	 */
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
+	@NotNull
 	public User getUser() {
 		return user;
 	}
@@ -119,6 +123,86 @@ public abstract class Role {
 		else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Invokes <code>user.getEmail()<code>.
+	 * @return
+	 * @see br.com.arsmachina.authentication.entity.User#getEmail()
+	 */
+	@Transient
+	public String getEmail() {
+		return user.getEmail();
+	}
+
+	/**
+	 * Invokes <code>user.getLogin()<code>.
+	 * @return
+	 * @see br.com.arsmachina.authentication.entity.User#getLogin()
+	 */
+	@Transient
+	public String getLogin() {
+		return user.getLogin();
+	}
+
+	/**
+	 * Invokes <code>user.getName()<code>.
+	 * @return a {@link String}.
+	 * @see br.com.arsmachina.authentication.entity.User#getName()
+	 */
+	@Transient
+	public String getName() {
+		return user.getName();
+	}
+
+	/**
+	 * Invokes <code>user.isCredentialsExpired()<code>.
+	 * @return a <code>boolean</code>.
+	 * @see br.com.arsmachina.authentication.entity.User#isCredentialsExpired()
+	 */
+	@Transient
+	public boolean isCredentialsExpired() {
+		return user.isCredentialsExpired();
+	}
+
+	/**
+	 * Invokes <code>user.isEnabled()<code>.
+	 * @return a <code>boolean</code>.
+	 * @see br.com.arsmachina.authentication.entity.User#isEnabled()
+	 */
+	@Transient
+	public boolean isEnabled() {
+		return user.isEnabled();
+	}
+
+	/**
+	 * Invokes <code>user.isExpired()<code>.
+	 * @return a <code>boolean</code>.
+	 * @see br.com.arsmachina.authentication.entity.User#isExpired()
+	 */
+	@Transient
+	public boolean isExpired() {
+		return user.isExpired();
+	}
+
+	/**
+	 * Invokes <code>user.isLocked()<code>.
+	 * @return a <code>boolean</code>.
+	 * @see br.com.arsmachina.authentication.entity.User#isLocked()
+	 */
+	@Transient
+	public boolean isLocked() {
+		return user.isLocked();
+	}
+
+	/**
+	 * Invokes <code>user.isLoggedIn()<code>.
+	 * @return a <code>boolean</code>.
+	 * @see br.com.arsmachina.authentication.entity.User#isLoggedIn()
+	 */
+	@Transient
+	public boolean isLoggedIn() {
+		return user.isLoggedIn();
 	}
 
 }

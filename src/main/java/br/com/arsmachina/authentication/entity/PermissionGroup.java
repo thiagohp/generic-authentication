@@ -23,6 +23,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
@@ -34,6 +35,7 @@ import org.hibernate.validator.Size;
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
 @Entity
+@Table(name = "permissiongroup")
 final public class PermissionGroup implements Comparable<Permission> {
 
 	/**
@@ -53,13 +55,31 @@ final public class PermissionGroup implements Comparable<Permission> {
 
 	private Integer id;
 
-	@NotNull
-	@Length(min = MINIMUM_NAME_LENGTH, max = MAXIMUM_NAME_LENGTH)
 	private String name;
 
-	@Size(min = 1, max = 100)
-	@OrderBy("name asc")
 	private List<Permission> permissions = new ArrayList<Permission>();
+	
+	/**
+	 * No-arg constructor. 
+	 */
+	public PermissionGroup() {
+	}
+
+	/**
+	 * Constructor that receives a name.
+	 * 
+	 * @param name a {@link String}. It cannot be null.
+	 * @throws IllegalArgumentException if <code>name</code> is null.
+	 */
+	public PermissionGroup(String name) {
+		
+		if (name == null) {
+			throw new IllegalArgumentException("Parameter name cannot be null");
+		}
+		
+		this.name = name;
+		
+	}
 
 	/**
 	 * @see java.lang.Object#hashCode()
@@ -128,7 +148,9 @@ final public class PermissionGroup implements Comparable<Permission> {
 	 * 
 	 * @return a {@link String}.
 	 */
-	@Column(nullable = false, unique = true)
+	@NotNull
+	@Length(min = MINIMUM_NAME_LENGTH, max = MAXIMUM_NAME_LENGTH)
+	@Column(nullable = false, unique = true, length = MAXIMUM_NAME_LENGTH)
 	public String getName() {
 		return name;
 	}
@@ -148,6 +170,8 @@ final public class PermissionGroup implements Comparable<Permission> {
 	 * @return a {@link List<Permission>}.
 	 */
 	@ManyToMany
+	@OrderBy("name asc")
+	@Size(min = 1, max = 100)
 	public List<Permission> getPermissions() {
 		return permissions;
 	}

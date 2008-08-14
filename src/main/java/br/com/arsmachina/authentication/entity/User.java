@@ -29,6 +29,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.Email;
@@ -44,6 +45,7 @@ import org.hibernate.validator.NotNull;
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
 @Entity
+@Table(name = "user")
 final public class User implements Comparable<User> {
 
 	/**
@@ -84,35 +86,26 @@ final public class User implements Comparable<User> {
 	/**
 	 * Maximum name length.
 	 */
-	public static final int MAXIMUM_PASSWORD_LENGTH = 32;
+	public static final int MAXIMUM_PASSWORD_LENGTH = 40;
+
+	private Integer id;
+
+	private String login;
+	
+	private String name;
+
+	private String email;
 
 	private boolean credentialsExpired = false;
-
-	@NotNull
-	@Length(min = User.MINIMUM_EMAIL_LENGTH, max = User.MAXIMUM_EMAIL_LENGTH)
-	@Email
-	private String email;
 
 	private boolean enabled = true;
 
 	private boolean expired = false;
 
-	private Integer id;
-
 	private boolean locked = false;
 
 	private boolean loggedIn = false;
 
-	@NotNull
-	@Length(min = User.MINIMUM_LOGIN_LENGTH, max = User.MAXIMUM_LOGIN_LENGTH)
-	private String login;
-
-	@NotNull
-	@Length(min = User.MINIMUM_NAME_LENGTH, max = User.MAXIMUM_NAME_LENGTH)
-	private String name;
-
-	@NotNull
-	@Length(min = User.MINIMUM_PASSWORD_LENGTH, max = User.MAXIMUM_PASSWORD_LENGTH)
 	private String password;
 
 	private List<PermissionGroup> permissionGroups = new ArrayList<PermissionGroup>();
@@ -210,6 +203,8 @@ final public class User implements Comparable<User> {
 	 * 
 	 * @return a {@link String}.
 	 */
+	@Email
+	@Length(min = User.MINIMUM_EMAIL_LENGTH, max = User.MAXIMUM_EMAIL_LENGTH)
 	public String getEmail() {
 		return email;
 	}
@@ -231,6 +226,8 @@ final public class User implements Comparable<User> {
 	 * @return a {@link String}.
 	 */
 	@Column(nullable = false, unique = true)
+	@NotNull
+	@Length(min = User.MINIMUM_LOGIN_LENGTH, max = User.MAXIMUM_LOGIN_LENGTH)
 	public String getLogin() {
 		return login;
 	}
@@ -241,6 +238,8 @@ final public class User implements Comparable<User> {
 	 * @return a {@link String}.
 	 */
 	@Column(nullable = false)
+	@NotNull
+	@Length(min = User.MINIMUM_NAME_LENGTH, max = User.MAXIMUM_NAME_LENGTH)
 	public String getName() {
 		return name;
 	}
@@ -250,7 +249,9 @@ final public class User implements Comparable<User> {
 	 * 
 	 * @return a {@link String}.
 	 */
-	@Column(nullable = false, length = 32)
+	@Column(nullable = false, length = MAXIMUM_PASSWORD_LENGTH)
+	@NotNull
+	@Length(min = User.MINIMUM_PASSWORD_LENGTH, max = User.MAXIMUM_PASSWORD_LENGTH)
 	public String getPassword() {
 		return password;
 	}
