@@ -23,7 +23,8 @@ package br.com.arsmachina.authentication.controller;
 public interface PasswordEncrypter {
 
 	/**
-	 * Encrypts a <code>password</code> if it is not encrypted already.
+	 * Encrypts a <code>password</code>. If it is encrypted already, it must return it
+	 * unchanged.
 	 * 
 	 * @param password a {@link String}. It cannot be null.
 	 * @return a {@link String}.
