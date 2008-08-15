@@ -4,14 +4,14 @@
 	<groupId>br.com.arsmachina</groupId>
 	<artifactId>generic-authentication</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>0.9</version>
 	<name>Simple user, role (permission) and role group implementation.</name>
 	<inceptionYear>2008</inceptionYear>
-	<url>http://ars-machina.sourceforge.net/generic-authentication</url>
+	<url>http://www.arsmachina.com.br/project/generic-authentication</url>
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0</version>
+		<version>0.9</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<dependencies>
@@ -40,7 +40,7 @@
 	  <dependency>
       <groupId>br.com.arsmachina</groupId>
       <artifactId>generic-controller-spring</artifactId>
-      <version>1.0</version>
+      <version>0.9</version>
     </dependency>
   </dependencies>
 </project>
