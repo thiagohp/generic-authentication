@@ -21,6 +21,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -170,6 +172,11 @@ final public class PermissionGroup implements Comparable<Permission> {
 	 * @return a {@link List<Permission>}.
 	 */
 	@ManyToMany
+	@JoinTable(
+		name = "permissiongroup_permission",
+		joinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false),
+		inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false)
+	)
 	@OrderBy("name asc")
 	@Size(min = 1, max = 100)
 	public List<Permission> getPermissions() {

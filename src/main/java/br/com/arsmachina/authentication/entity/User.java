@@ -26,6 +26,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -40,7 +42,7 @@ import org.hibernate.validator.NotNull;
  * Class that represents an application user. Each user can belong to any number of
  * {@link Permission}s. When a given user belongs to a {@link Permission}, but cannot be granted
  * some {@link Permission} in that group, this permission must be added to the list of removed
- * permissions. The method
+ * permissions (<code>removedPermissions</code> property).
  * 
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
@@ -263,6 +265,11 @@ final public class User implements Comparable<User> {
 	 */
 	@ManyToMany
 	@OrderBy("name asc")
+	@JoinTable(
+		name = "user_permissiongroup",
+		joinColumns = @JoinColumn(name = "user_id", nullable = false),
+		inverseJoinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false)
+	)
 	public List<PermissionGroup> getPermissionGroups() {
 		return permissionGroups;
 	}
@@ -314,6 +321,11 @@ final public class User implements Comparable<User> {
 	 */
 	@ManyToMany
 	@OrderBy("name asc")
+	@JoinTable(
+			name = "user_removedpermission",
+			joinColumns = @JoinColumn(name = "user_id", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false)
+	)
 	public List<Permission> getRemovedPermissions() {
 		return removedPermissions;
 	}
@@ -419,7 +431,7 @@ final public class User implements Comparable<User> {
 	 * 
 	 * @param roleClass a {@link Class}.
 	 */
-	public <T extends Role> void removeClass(Class<T> roleClass) {
+	public <T extends Role> void removeRole(Class<T> roleClass) {
 
 		for (Iterator<Role> i = roles.iterator(); i.hasNext();) {
 
