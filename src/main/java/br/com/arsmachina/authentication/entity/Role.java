@@ -33,7 +33,7 @@ import org.hibernate.validator.NotNull;
  * {@link User} subclasses, thus solving the problem of the same user having more than one role at
  * the same time.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "role")

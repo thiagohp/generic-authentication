@@ -24,7 +24,7 @@ import br.com.arsmachina.controller.Controller;
 /**
  * Controller definition for {@link User}.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public interface UserController extends Controller<User, Integer> {
 

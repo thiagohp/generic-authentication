@@ -26,7 +26,7 @@ import org.hibernate.validator.NotNull;
 /**
  * Class that represents a single permission.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "permission")

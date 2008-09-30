@@ -22,7 +22,7 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
 /**
  * {@link PermissionGroupController} implementation.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class PermissionGroupControllerImpl extends SpringControllerImpl<PermissionGroup, Integer>
 		implements PermissionGroupController {

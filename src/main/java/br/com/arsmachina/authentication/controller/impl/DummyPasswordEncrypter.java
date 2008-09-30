@@ -19,7 +19,7 @@ import br.com.arsmachina.authentication.controller.PasswordEncrypter;
 /**
  * {@link PasswordEncrypter} implementation that does not really encrypt passwords.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class DummyPasswordEncrypter implements PasswordEncrypter {
 

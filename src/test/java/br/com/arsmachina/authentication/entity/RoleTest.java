@@ -17,15 +17,20 @@ package br.com.arsmachina.authentication.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import br.com.arsmachina.authentication.entity.Permission;
+import br.com.arsmachina.authentication.entity.PermissionGroup;
+import br.com.arsmachina.authentication.entity.User;
+
 /**
- * Test class for {@link User}.
+ * Test class for {@link Permission}.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
-public class UserTest {
+public class RoleTest {
 
 	@Test
 	public void getRoles() {
@@ -36,11 +41,9 @@ public class UserTest {
 		new ArrayList<Permission>();
 
 		for (int i = 0; i < 2; i++) {
-			
 			final PermissionGroup group = new PermissionGroup();
 			group.setName("Group " + i);
 			user.getPermissionGroups().add(group);
-			
 		}
 
 		for (int i = 0; i < 8; i++) {

@@ -22,7 +22,7 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
 /**
  * {@link PermissionController} implementation.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class PermissionControllerImpl extends SpringControllerImpl<Permission, Integer> implements
 		PermissionController {

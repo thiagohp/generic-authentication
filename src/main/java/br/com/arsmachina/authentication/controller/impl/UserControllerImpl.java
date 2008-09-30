@@ -33,7 +33,7 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
 /**
  * {@link UserController} implementation.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class UserControllerImpl extends SpringControllerImpl<User, Integer> implements
 		UserController {

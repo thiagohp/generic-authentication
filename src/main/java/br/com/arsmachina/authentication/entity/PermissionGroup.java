@@ -34,7 +34,7 @@ import org.hibernate.validator.Size;
 /**
  * Class that represents a group of permissions.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "permissiongroup")

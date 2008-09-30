@@ -20,7 +20,7 @@ import br.com.arsmachina.controller.Controller;
 /**
  * Controller definition for {@link PermissionGroup}.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public interface PermissionGroupController extends Controller<PermissionGroup, Integer> {
 

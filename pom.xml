@@ -5,9 +5,10 @@
 	<artifactId>generic-authentication</artifactId>
 	<packaging>jar</packaging>
 	<version>0.9</version>
-	<name>Simple user, role (permission) and role group implementation.</name>
+	<name>Generic Authentication</name>
+	<description>Simple user, role (permission) and role group implementation.</description>
 	<inceptionYear>2008</inceptionYear>
-	<url>http://www.arsmachina.com.br/project/generic-authentication</url>
+	<url>http://www.arsmachina.com.br/project/genericauthentication</url>
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>

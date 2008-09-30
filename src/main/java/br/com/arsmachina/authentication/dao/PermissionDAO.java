@@ -20,7 +20,7 @@ import br.com.arsmachina.dao.DAO;
 /**
  * Data access object (DAO) for {@link Permission}.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public interface PermissionDAO extends DAO<Permission, Integer> {
 

@@ -18,7 +18,7 @@ package br.com.arsmachina.authentication.controller;
  * Interface used to encrypt passwords. It is recommended to use a secure cryptographic hash
  * function, but any one can used (including no encrypting at all).
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public interface PasswordEncrypter {
 

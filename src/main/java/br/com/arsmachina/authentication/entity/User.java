@@ -44,7 +44,7 @@ import org.hibernate.validator.NotNull;
  * some {@link Permission} in that group, this permission must be added to the list of removed
  * permissions (<code>removedPermissions</code> property).
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "user")

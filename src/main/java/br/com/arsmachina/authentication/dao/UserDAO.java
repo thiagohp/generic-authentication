@@ -24,7 +24,7 @@ import br.com.arsmachina.dao.DAO;
 /**
  * Data access object (DAO) for {@link User}.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public interface UserDAO extends DAO<User, Integer> {
 
