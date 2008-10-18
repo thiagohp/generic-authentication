@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/10/2008 22:04:42 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.com.arsmachina.authentication.entity.User" table="`user`">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="sequence">
+            	<param name="sequence">user_id_seq</param>
+            </generator>
+        </id>
+        <property name="credentialsExpired" type="boolean">
+            <column name="credentialsExpired" not-null="true" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" length="50" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="enabled" not-null="true" />
+        </property>
+        <property name="expired" type="boolean">
+            <column name="expired" not-null="true" />
+        </property>
+        <property name="locked" type="boolean">
+            <column name="locked" not-null="true" />
+        </property>
+        <property name="loggedIn" type="boolean">
+            <column name="loggedIn" not-null="true" />
+        </property>
+        <property name="login" type="java.lang.String">
+            <column name="login" length="50" not-null="true" unique="true" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="name" length="50" not-null="true" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" length="40" not-null="true" />
+        </property>
+        <bag name="permissionGroups" table="user_permissiongroup" inverse="false">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="br.com.arsmachina.authentication.entity.PermissionGroup">
+                <column name="permissiongroup_id" not-null="true" />
+            </many-to-many>
+        </bag>
+        <bag name="removedPermissions" table="user_removedpermission" inverse="false">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="br.com.arsmachina.authentication.entity.Permission">
+                <column name="permission_id" not-null="true" />
+            </many-to-many>
+        </bag>
+        <bag name="roles" inverse="true">
+            <key>
+                <column name="user_id" />
+            </key>
+            <one-to-many class="br.com.arsmachina.authentication.entity.Role" />
+        </bag>
+    </class>
+</hibernate-mapping>

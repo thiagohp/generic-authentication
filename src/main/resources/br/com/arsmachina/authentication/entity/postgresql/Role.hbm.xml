@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/10/2008 22:04:42 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.com.arsmachina.authentication.entity.Role" table="role">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="sequence">
+            	<param name="sequence">role_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="user" class="br.com.arsmachina.authentication.entity.User" fetch="join">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
