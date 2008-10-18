@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.arsmachina</groupId>
 	<artifactId>generic-authentication</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9</version>
+	<version>1.0</version>
 	<name>Generic Authentication</name>
-	<description>Simple user, role (permission) and role group implementation.</description>
+	<description>
+		Simple user, role (permission) and role group implementation.
+	</description>
 	<inceptionYear>2008</inceptionYear>
 	<url>http://www.arsmachina.com.br/project/genericauthentication</url>
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.9</version>
+		<version>1.0</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<dependencies>
@@ -38,10 +42,9 @@
 			<classifier>jdk15</classifier>
 			<scope>test</scope>
 		</dependency>
-	  <dependency>
-      <groupId>br.com.arsmachina</groupId>
-      <artifactId>generic-controller-spring</artifactId>
-      <version>0.9</version>
-    </dependency>
-  </dependencies>
+		<dependency>
+			<groupId>br.com.arsmachina</groupId>
+			<artifactId>generic-controller-spring</artifactId>
+		</dependency>
+	</dependencies>
 </project>
