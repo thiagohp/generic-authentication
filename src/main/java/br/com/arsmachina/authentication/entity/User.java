@@ -47,7 +47,7 @@ import org.hibernate.validator.NotNull;
  * @author Thiago H. de Paula Figueiredo
  */
 @Entity
-@Table(name = "user")
+@Table(name = "`user`")
 final public class User implements Comparable<User> {
 
 	/**

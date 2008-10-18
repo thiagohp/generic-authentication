@@ -36,7 +36,7 @@ import org.hibernate.validator.NotNull;
  * @author Thiago H. de Paula Figueiredo
  */
 @Entity
-@Table(name = "role")
+@Table(name = "`role`")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Role {
 
