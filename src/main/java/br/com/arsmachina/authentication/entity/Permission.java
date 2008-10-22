@@ -14,6 +14,8 @@
 
 package br.com.arsmachina.authentication.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +32,9 @@ import org.hibernate.validator.NotNull;
  */
 @Entity
 @Table(name = "permission")
-final public class Permission implements Comparable<Permission> {
+final public class Permission implements Comparable<Permission>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Name of the role that all users have.

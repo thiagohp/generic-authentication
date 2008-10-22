@@ -14,6 +14,7 @@
 
 package br.com.arsmachina.authentication.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ import org.hibernate.validator.NotNull;
 @Entity
 @Table(name = "`role`")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Role {
+public abstract class Role implements Serializable {
 
 	private Integer id;
 

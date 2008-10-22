@@ -14,6 +14,7 @@
 
 package br.com.arsmachina.authentication.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,9 @@ import org.hibernate.validator.Size;
  */
 @Entity
 @Table(name = "permissiongroup")
-final public class PermissionGroup implements Comparable<Permission> {
+final public class PermissionGroup implements Comparable<Permission>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Minimum name length.

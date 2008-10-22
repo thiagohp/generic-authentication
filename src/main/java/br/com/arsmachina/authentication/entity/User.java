@@ -14,6 +14,7 @@
 
 package br.com.arsmachina.authentication.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -48,7 +49,9 @@ import org.hibernate.validator.NotNull;
  */
 @Entity
 @Table(name = "`user`")
-final public class User implements Comparable<User> {
+final public class User implements Comparable<User>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Minimum e-mail length.
