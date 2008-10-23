@@ -15,6 +15,7 @@
 package br.com.arsmachina.authentication.controller.impl;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,8 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
  */
 public class UserControllerImpl extends SpringControllerImpl<User, Integer> implements
 		UserController {
+	
+	private Random random = new Random();
 
 	private UserDAO dao;
 
@@ -168,6 +171,8 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 			user.add(allUsersPermissionGroup);
 		}
 
+		setPasswordIfNeeded(user);
+		
 		encryptPassword(user);
 
 		super.save(user);
@@ -194,6 +199,17 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		String password = user.getPassword();
 		password = passwordEncrypter.encrypt(password);
 		user.setPassword(password);
+		
+	}
+	/**
+	 * Creates a temporary throw-away random password if it was not set yet.
+	 * @param user an {@link User}.
+	 */
+	private void setPasswordIfNeeded(User user) {
+
+		if (user.getPassword() == null) {
+			user.setPassword(Integer.toHexString(random.nextInt()));
+		}
 		
 	}
 
