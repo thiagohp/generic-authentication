@@ -30,7 +30,6 @@ import br.com.arsmachina.authentication.entity.Role;
 import br.com.arsmachina.authentication.entity.User;
 import br.com.arsmachina.controller.impl.SpringControllerImpl;
 
-
 /**
  * {@link UserController} implementation.
  * 
@@ -38,7 +37,7 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
  */
 public class UserControllerImpl extends SpringControllerImpl<User, Integer> implements
 		UserController {
-	
+
 	private Random random = new Random();
 
 	private UserDAO dao;
@@ -172,7 +171,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		}
 
 		setPasswordIfNeeded(user);
-		
+
 		encryptPassword(user);
 
 		super.save(user);
@@ -180,29 +179,32 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	}
 
 	/**
+	 * Encrypts the password if it is not encrypted already and then updates the user.
+	 * 
+	 * @param user an {@link User}.
+	 * @return <code>user</code>.
 	 * @see br.com.arsmachina.controller.impl.SpringControllerImpl#update(java.lang.Object)
 	 */
 	@Override
 	@Transactional
-	public void update(User user) {
-		
+	public User update(User user) {
+
 		encryptPassword(user);
-		super.update(user);
-		
+		return super.update(user);
+
 	}
 
-	/**
-	 * @param user
-	 */
 	private void encryptPassword(User user) {
-		
+
 		String password = user.getPassword();
 		password = passwordEncrypter.encrypt(password);
 		user.setPassword(password);
-		
+
 	}
+
 	/**
 	 * Creates a temporary throw-away random password if it was not set yet.
+	 * 
 	 * @param user an {@link User}.
 	 */
 	private void setPasswordIfNeeded(User user) {
@@ -210,7 +212,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		if (user.getPassword() == null) {
 			user.setPassword(Integer.toHexString(random.nextInt()));
 		}
-		
+
 	}
 
 }
