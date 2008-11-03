@@ -193,6 +193,18 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		return super.update(user);
 
 	}
+	
+	
+
+	/**
+	 * Invokes <code>delegate.hasUserWithLogin()<code>.
+	 * @param login
+	 * @return
+	 * @see br.com.arsmachina.authentication.dao.UserDAO#hasUserWithLogin(java.lang.String)
+	 */
+	public boolean hasUserWithLogin(String login) {
+		return dao.hasUserWithLogin(login);
+	}
 
 	private void encryptPassword(User user) {
 

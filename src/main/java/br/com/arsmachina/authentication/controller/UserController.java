@@ -52,4 +52,13 @@ public interface UserController extends Controller<User, Integer> {
 	 * @return a {@link List} of {@link User}s.
 	 */
 	<T extends Role> List<User> findByRole(Class<T> roleClass);
+	
+	/**
+	 * Tells if some user with a given login exists. 
+	 * @param login a {@link String}. It cannot be null.
+	 * 
+	 * @return a <code>boolean</code>.
+	 */
+	boolean hasUserWithLogin(String login);
+	
 }
