@@ -297,14 +297,6 @@ final public class User implements Comparable<User>, Serializable {
 
 		}
 
-		for (Role role : getRoles()) {
-
-			for (Permission rolePermission : role.getPermissions()) {
-				permissions.add(rolePermission);
-			}
-
-		}
-
 		for (Permission permission : getRemovedPermissions()) {
 			permissions.remove(permission);
 		}
