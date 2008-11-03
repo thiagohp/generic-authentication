@@ -15,7 +15,6 @@
 package br.com.arsmachina.authentication.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,17 +43,6 @@ public abstract class Role implements Serializable {
 	private Integer id;
 
 	private User user;
-
-	/**
-	 * Returns a immutable set of permissions all users with this role have.
-	 * The returned permissions need not come from the database: all they need is to
-	 * have their name set.
-	 * This set must be fixed.
-	 * 
-	 * @return a {@link Set} of {@link Permission}s.
-	 */
-	@Transient
-	public abstract Set<Permission> getPermissions();
 
 	/**
 	 * Returns the value of the <code>id</code> property.
