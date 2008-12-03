@@ -63,9 +63,9 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	private String name;
 
 	private List<Permission> permissions = new ArrayList<Permission>();
-	
+
 	/**
-	 * No-arg constructor. 
+	 * No-arg constructor.
 	 */
 	public PermissionGroup() {
 	}
@@ -77,13 +77,13 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	 * @throws IllegalArgumentException if <code>name</code> is null.
 	 */
 	public PermissionGroup(String name) {
-		
+
 		if (name == null) {
 			throw new IllegalArgumentException("Parameter name cannot be null");
 		}
-		
+
 		this.name = name;
-		
+
 	}
 
 	/**
@@ -175,11 +175,7 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	 * @return a {@link List<Permission>}.
 	 */
 	@ManyToMany
-	@JoinTable(
-		name = "permissiongroup_permission",
-		joinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false),
-		inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false)
-	)
+	@JoinTable(name = "permissiongroup_permission", joinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false))
 	@OrderBy("name asc")
 	@Size(min = 1, max = 100)
 	public List<Permission> getPermissions() {
@@ -216,6 +212,16 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	 */
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	/**
+	 * Returns the <code>name</code> property.
+	 * 
+	 * @return a {@link String}.
+	 */
+	@Override
+	public String toString() {
+		return name;
 	}
 
 }

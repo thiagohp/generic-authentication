@@ -119,7 +119,9 @@ final public class Permission implements Comparable<Permission>, Serializable {
 	}
 
 	/**
-	 * @see java.lang.Object#toString()
+	 * Returns the <code>name</code> property.
+	 * 
+	 * @return a {@link String}.
 	 */
 	@Override
 	public String toString() {

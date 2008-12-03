@@ -96,7 +96,7 @@ final public class User implements Comparable<User>, Serializable {
 	private Integer id;
 
 	private String login;
-	
+
 	private String name;
 
 	private String email;
@@ -268,11 +268,7 @@ final public class User implements Comparable<User>, Serializable {
 	 */
 	@ManyToMany
 	@OrderBy("name asc")
-	@JoinTable(
-		name = "user_permissiongroup",
-		joinColumns = @JoinColumn(name = "user_id", nullable = false),
-		inverseJoinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false)
-	)
+	@JoinTable(name = "user_permissiongroup", joinColumns = @JoinColumn(name = "user_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false))
 	public List<PermissionGroup> getPermissionGroups() {
 		return permissionGroups;
 	}
@@ -316,11 +312,7 @@ final public class User implements Comparable<User>, Serializable {
 	 */
 	@ManyToMany
 	@OrderBy("name asc")
-	@JoinTable(
-			name = "user_removedpermission",
-			joinColumns = @JoinColumn(name = "user_id", nullable = false),
-			inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false)
-	)
+	@JoinTable(name = "user_removedpermission", joinColumns = @JoinColumn(name = "user_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false))
 	public List<Permission> getRemovedPermissions() {
 		return removedPermissions;
 	}
@@ -583,7 +575,9 @@ final public class User implements Comparable<User>, Serializable {
 	}
 
 	/**
-	 * @see java.lang.Object#toString()
+	 * Returns the <code>name</code> property.
+	 * 
+	 * @return a {@link String}.
 	 */
 	@Override
 	public String toString() {
