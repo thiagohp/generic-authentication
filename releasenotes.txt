@@ -1,0 +1,6 @@
+1.0
+* Many improvements to the User, Role, Permission and PermissionGroup classes.
+* Added method hasUserWithLogin(String) to UserDAO and UserController.
+
+0.9
+* Initial version
