@@ -215,6 +215,34 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	}
 
 	/**
+	 * Tells if this user has at least one of a set of permissions.
+	 * 
+	 * @param permissionName an array of {@link String}s.
+	 * @return a <code>boolean</code>.
+	 */
+	public boolean hasPermission(String... permissionNames) {
+
+		boolean result = false;
+
+		outer:
+		for (Permission permission : permissions) {
+
+			for (String permissionName : permissionNames) {
+
+				if (permission.getName().equals(permissionName)) {
+					result = true;
+					break outer;
+				}
+
+			}
+
+		}
+
+		return result;
+
+	}
+
+	/**
 	 * Returns the <code>name</code> property.
 	 * 
 	 * @return a {@link String}.
