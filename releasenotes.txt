@@ -1,3 +1,8 @@
+1.1
+* Updated parent project version to 1.1.
+* Added method hasPermission() to User and PermissionGroup.
+* Added the UserService interface.
+
 1.0
 * Many improvements to the User, Role, Permission and PermissionGroup classes.
 * Added method hasUserWithLogin(String) to UserDAO and UserController.

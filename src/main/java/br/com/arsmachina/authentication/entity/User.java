@@ -170,16 +170,10 @@ final public class User implements Comparable<User>, Serializable {
 
 	}
 
-	/**
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
 	public int compareTo(User o) {
 		return getName().compareToIgnoreCase(o.getName());
 	}
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -352,8 +346,28 @@ final public class User implements Comparable<User>, Serializable {
 	}
 
 	/**
-	 * @see java.lang.Object#hashCode()
+	 * Tells if this user has at least one of a set of permissions.
+	 * 
+	 * @param permissionName an array of {@link String}s.
+	 * @return a <code>boolean</code>.
 	 */
+	public boolean hasPermission(String... permissionNames) {
+
+		boolean result = false;
+
+		for (PermissionGroup permissionGroup : permissionGroups) {
+			
+			if (permissionGroup.hasPermission(permissionNames)) {
+				result = true;
+				break;
+			}
+
+		}
+
+		return result;
+
+	}
+
 	@Override
 	public int hashCode() {
 		return login != null ? login.hashCode() : super.hashCode();

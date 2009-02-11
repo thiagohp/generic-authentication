@@ -6,7 +6,7 @@
 	<groupId>br.com.arsmachina</groupId>
 	<artifactId>generic-authentication</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>Generic Authentication</name>
 	<description>
 		Simple user, role (permission) and role group implementation.
@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0</version>
+		<version>1.1</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<dependencies>

@@ -40,6 +40,8 @@ import org.hibernate.validator.NotNull;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Role implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 
 	private User user;
