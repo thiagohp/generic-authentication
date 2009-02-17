@@ -30,5 +30,11 @@ public interface UserService {
 	 * @return an {@link User} or null.
 	 */
 	User getUser();
+	
+	/**
+	 * Tells if the user using this application in this thread is logged in.
+	 * @return a <code>boolean</code>.
+	 */
+	boolean isLoggedIn();
 
 }
