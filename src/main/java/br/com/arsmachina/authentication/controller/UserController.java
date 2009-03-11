@@ -44,6 +44,15 @@ public interface UserController extends Controller<User, Integer> {
 	 * @return an {@link User}.
 	 */
 	User findByLogin(String login);
+	
+	/**
+	 * Loads the user and their permissions with a given login or <code>null</code> if no such
+	 * user exists.
+	 * 
+	 * @param login a <code>String</code>.
+	 * @return an {@link User}.
+	 */
+	User loadForAuthentication(String login);
 
 	/**
 	 * Returns all users with a given {@link Role} subclass.

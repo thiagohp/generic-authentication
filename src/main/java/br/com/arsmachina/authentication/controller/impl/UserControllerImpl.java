@@ -35,8 +35,8 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
  * 
  * @author Thiago H. de Paula Figueiredo
  */
-public class UserControllerImpl extends SpringControllerImpl<User, Integer> implements
-		UserController {
+public class UserControllerImpl extends SpringControllerImpl<User, Integer>
+		implements UserController {
 
 	private Random random = new Random();
 
@@ -54,10 +54,12 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * Single constructor of this class.
 	 * 
 	 * @param dao an {@link UserDAO}. It cannot be <code>null</code>.
-	 * @param passwordEncrypter a {@link PasswordEncrypter}. It cannot be <code>null</code>.
-	 * @param permissionController a {@link PermissionController}. It cannot be <code>null</code>. .
-	 * @param permissionGroupController a {@link PermissionGroupController}. It cannot be
-	 * <code>null</code>.
+	 * @param passwordEncrypter a {@link PasswordEncrypter}. It cannot be
+	 *            <code>null</code>.
+	 * @param permissionController a {@link PermissionController}. It cannot be
+	 *            <code>null</code>. .
+	 * @param permissionGroupController a {@link PermissionGroupController}. It
+	 *            cannot be <code>null</code>.
 	 */
 	public UserControllerImpl(UserDAO dao, PasswordEncrypter passwordEncrypter,
 			PermissionController permissionController,
@@ -67,15 +69,18 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		this.dao = dao;
 
 		if (permissionController == null) {
-			throw new IllegalArgumentException("Parameter permissionController cannot be null");
+			throw new IllegalArgumentException(
+					"Parameter permissionController cannot be null");
 		}
 
 		if (permissionGroupController == null) {
-			throw new IllegalArgumentException("Parameter permissionGroupController cannot be null");
+			throw new IllegalArgumentException(
+					"Parameter permissionGroupController cannot be null");
 		}
 
 		if (passwordEncrypter == null) {
-			throw new IllegalArgumentException("Parameter passwordEncrypter cannot be null");
+			throw new IllegalArgumentException(
+					"Parameter passwordEncrypter cannot be null");
 		}
 
 		this.permissionController = permissionController;
@@ -90,7 +95,8 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	 * @param permissionController a {@link PermissionController}.
 	 * @param permissionGroupController a {@link PermissionGroupController}.
 	 */
-	private void ensureBasicPermissionsExist(PermissionController permissionController,
+	private void ensureBasicPermissionsExist(
+			PermissionController permissionController,
 			PermissionGroupController permissionGroupController) {
 
 		final String roleName = Permission.USER_ROLE_NAME;
@@ -104,7 +110,8 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 		}
 
-		final String groupName = PermissionGroup.ALL_USERS_PERMISSION_GROUP_NAME;
+		final String groupName =
+			PermissionGroup.ALL_USERS_PERMISSION_GROUP_NAME;
 		PermissionGroup group = permissionGroupController.findByName(groupName);
 
 		if (group == null) {
@@ -122,10 +129,12 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 	/**
 	 * Invokes <code>dao.findByLoginAndPassword()<code>.
+	 * 
 	 * @param login
 	 * @param password
 	 * @return
-	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLoginAndPassword(java.lang.String, java.lang.String)
+	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLoginAndPassword(java.lang.String,
+	 *      java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	public User findByLoginAndPassword(String login, String password) {
@@ -134,6 +143,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 	/**
 	 * Invokes <code>dao.findByLogin()<code>.
+	 * 
 	 * @param login
 	 * @return
 	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLogin(java.lang.String)
@@ -145,6 +155,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 	/**
 	 * Invokes <code>delegate.findByRole()<code>.
+	 * 
 	 * @param <T>
 	 * @param roleClass
 	 * @return
@@ -163,7 +174,8 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	public void save(User user) {
 
 		if (allUsersPermissionGroup == null) {
-			ensureBasicPermissionsExist(permissionController, permissionGroupController);
+			ensureBasicPermissionsExist(permissionController,
+					permissionGroupController);
 		}
 
 		if (user.getPermissionGroups().contains(allUsersPermissionGroup) == false) {
@@ -179,7 +191,8 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	}
 
 	/**
-	 * Encrypts the password if it is not encrypted already and then updates the user.
+	 * Encrypts the password if it is not encrypted already and then updates the
+	 * user.
 	 * 
 	 * @param user an {@link User}.
 	 * @return <code>user</code>.
@@ -193,11 +206,14 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		return super.update(user);
 
 	}
-	
-	
+
+	public User loadForAuthentication(String login) {
+		return dao.loadForAuthentication(login);
+	}
 
 	/**
 	 * Invokes <code>delegate.hasUserWithLogin()<code>.
+	 * 
 	 * @param login
 	 * @return
 	 * @see br.com.arsmachina.authentication.dao.UserDAO#hasUserWithLogin(java.lang.String)
