@@ -20,7 +20,6 @@ import br.com.arsmachina.authentication.entity.Role;
 import br.com.arsmachina.authentication.entity.User;
 import br.com.arsmachina.controller.Controller;
 
-
 /**
  * Controller definition for {@link User}.
  * 
@@ -29,8 +28,8 @@ import br.com.arsmachina.controller.Controller;
 public interface UserController extends Controller<User, Integer> {
 
 	/**
-	 * Returns the user with a given login and password or <code>null</code> if no such user
-	 * exists.
+	 * Returns the user with a given login and password or <code>null</code> if
+	 * no such user exists.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return
@@ -38,16 +37,18 @@ public interface UserController extends Controller<User, Integer> {
 	User findByLoginAndPassword(String login, String password);
 
 	/**
-	 * Returns the user with a given login or <code>null</code> if no such user exists.
+	 * Returns the user with a given login or <code>null</code> if no such user
+	 * exists.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return an {@link User}.
 	 */
 	User findByLogin(String login);
-	
+
 	/**
-	 * Loads the user and their permissions with a given login or <code>null</code> if no such
-	 * user exists.
+	 * Loads the user and their permissions with a given login or
+	 * <code>null</code> if no such user exists. This method prefetches the
+	 * user's permissions.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return an {@link User}.
@@ -55,19 +56,31 @@ public interface UserController extends Controller<User, Integer> {
 	User loadForAuthentication(String login);
 
 	/**
+	 * Loads the user and their permissions with a given login or
+	 * <code>null</code> if no such user exists. This method prefetches the
+	 * user's permissions and roles.
+	 * 
+	 * @param login a <code>String</code>.
+	 * @return an {@link User}.
+	 */
+	User loadEverything(String login);
+
+	/**
 	 * Returns all users with a given {@link Role} subclass.
-	 *  
-	 * @param role a {@link Class}. It must be a {@link Role} subclass and cannot be null.
+	 * 
+	 * @param role a {@link Class}. It must be a {@link Role} subclass and
+	 *            cannot be null.
 	 * @return a {@link List} of {@link User}s.
 	 */
 	<T extends Role> List<User> findByRole(Class<T> roleClass);
-	
+
 	/**
-	 * Tells if some user with a given login exists. 
+	 * Tells if some user with a given login exists.
+	 * 
 	 * @param login a {@link String}. It cannot be null.
 	 * 
 	 * @return a <code>boolean</code>.
 	 */
 	boolean hasUserWithLogin(String login);
-	
+
 }

@@ -127,48 +127,21 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 
 	}
 
-	/**
-	 * Invokes <code>dao.findByLoginAndPassword()<code>.
-	 * 
-	 * @param login
-	 * @param password
-	 * @return
-	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLoginAndPassword(java.lang.String,
-	 *      java.lang.String)
-	 */
 	@Transactional(readOnly = true)
 	public User findByLoginAndPassword(String login, String password) {
 		return dao.findByLoginAndPassword(login, password);
 	}
 
-	/**
-	 * Invokes <code>dao.findByLogin()<code>.
-	 * 
-	 * @param login
-	 * @return
-	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByLogin(java.lang.String)
-	 */
 	@Transactional(readOnly = true)
 	public User findByLogin(String login) {
 		return dao.findByLogin(login);
 	}
 
-	/**
-	 * Invokes <code>delegate.findByRole()<code>.
-	 * 
-	 * @param <T>
-	 * @param roleClass
-	 * @return
-	 * @see br.com.arsmachina.authentication.dao.UserDAO#findByRole(java.lang.Class)
-	 */
 	@Transactional(readOnly = true)
 	public <T extends Role> List<User> findByRole(Class<T> roleClass) {
 		return dao.findByRole(roleClass);
 	}
 
-	/**
-	 * @see br.com.arsmachina.controller.impl.SpringControllerImpl#save(java.lang.Object)
-	 */
 	@Transactional
 	@Override
 	public void save(User user) {
@@ -190,14 +163,6 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 
 	}
 
-	/**
-	 * Encrypts the password if it is not encrypted already and then updates the
-	 * user.
-	 * 
-	 * @param user an {@link User}.
-	 * @return <code>user</code>.
-	 * @see br.com.arsmachina.controller.impl.SpringControllerImpl#update(java.lang.Object)
-	 */
 	@Override
 	@Transactional
 	public User update(User user) {
@@ -212,13 +177,12 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 		return dao.loadForAuthentication(login);
 	}
 
-	/**
-	 * Invokes <code>delegate.hasUserWithLogin()<code>.
-	 * 
-	 * @param login
-	 * @return
-	 * @see br.com.arsmachina.authentication.dao.UserDAO#hasUserWithLogin(java.lang.String)
-	 */
+	@Transactional
+	public User loadEverything(String login) {
+		return dao.loadEverything(login);
+	}
+
+	@Transactional
 	public boolean hasUserWithLogin(String login) {
 		return dao.hasUserWithLogin(login);
 	}

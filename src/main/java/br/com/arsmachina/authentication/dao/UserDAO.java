@@ -49,12 +49,21 @@ public interface UserDAO extends DAO<User, Integer> {
 
 	/**
 	 * Loads the user and their permissions with a given login or <code>null</code> if no such
-	 * user exists.
+	 * user exists. This method prefetches the user's permissions.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return an {@link User}.
 	 */
 	User loadForAuthentication(String login);
+
+	/**
+	 * Loads the user and their permissions with a given login or <code>null</code> if no such
+	 * user exists. This method prefetches the user's permissions and roles.
+	 * 
+	 * @param login a <code>String</code>.
+	 * @return an {@link User}.
+	 */
+	User loadEverything(String login);
 
 	/**
 	 * Returns all users with a given {@link Role} subclass.
