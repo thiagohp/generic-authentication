@@ -207,6 +207,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 
 	}
 
+	@Transactional
 	public User loadForAuthentication(String login) {
 		return dao.loadForAuthentication(login);
 	}
