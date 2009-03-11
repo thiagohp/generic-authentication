@@ -172,17 +172,16 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public User loadForAuthentication(String login) {
 		return dao.loadForAuthentication(login);
 	}
 
-	@Transactional
 	public User loadEverything(String login) {
 		return dao.loadEverything(login);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public boolean hasUserWithLogin(String login) {
 		return dao.hasUserWithLogin(login);
 	}
