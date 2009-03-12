@@ -2,6 +2,8 @@
 * Updated parent project version to 1.1.
 * Added method hasPermission() to User and PermissionGroup.
 * Added the UserService interface.
+* Added the loadForAuthentication() and loadEverything() methods to UserDAO, UserController and
+  UserControllerImpl.
 
 1.0
 * Many improvements to the User, Role, Permission and PermissionGroup classes.
