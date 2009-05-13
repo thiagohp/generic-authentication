@@ -202,6 +202,7 @@ final public class User implements Comparable<User>, Serializable {
 	 * 
 	 * @return a {@link String}.
 	 */
+	@Column(length = MAXIMUM_EMAIL_LENGTH)
 	@Email
 	@Length(min = User.MINIMUM_EMAIL_LENGTH, max = User.MAXIMUM_EMAIL_LENGTH)
 	public String getEmail() {
@@ -224,7 +225,7 @@ final public class User implements Comparable<User>, Serializable {
 	 * 
 	 * @return a {@link String}.
 	 */
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = MAXIMUM_LOGIN_LENGTH)
 	@NotNull
 	@Length(min = User.MINIMUM_LOGIN_LENGTH, max = User.MAXIMUM_LOGIN_LENGTH)
 	public String getLogin() {
@@ -236,7 +237,7 @@ final public class User implements Comparable<User>, Serializable {
 	 * 
 	 * @return a {@link String}.
 	 */
-	@Column(nullable = false)
+	@Column(nullable = false, length = MAXIMUM_NAME_LENGTH)
 	@NotNull
 	@Length(min = User.MINIMUM_NAME_LENGTH, max = User.MAXIMUM_NAME_LENGTH)
 	public String getName() {

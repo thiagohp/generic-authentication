@@ -4,6 +4,7 @@
 * Added the UserService interface.
 * Added the loadForAuthentication() and loadEverything() methods to UserDAO, UserController and
   UserControllerImpl.
+* Added column lengths to the User string properties mappings.
 
 1.0
 * Many improvements to the User, Role, Permission and PermissionGroup classes.
