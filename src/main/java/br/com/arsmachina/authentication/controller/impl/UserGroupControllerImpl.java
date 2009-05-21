@@ -14,40 +14,39 @@
 
 package br.com.arsmachina.authentication.controller.impl;
 
-import java.util.List;
-
-import br.com.arsmachina.authentication.controller.PermissionGroupController;
-import br.com.arsmachina.authentication.dao.PermissionGroupDAO;
-import br.com.arsmachina.authentication.entity.PermissionGroup;
+import br.com.arsmachina.authentication.controller.UserGroupController;
+import br.com.arsmachina.authentication.dao.UserGroupDAO;
 import br.com.arsmachina.authentication.entity.UserGroup;
 import br.com.arsmachina.controller.impl.SpringControllerImpl;
 
 /**
- * {@link PermissionGroupController} implementation.
+ * {@link UserGroupController} implementation.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
-public class PermissionGroupControllerImpl extends SpringControllerImpl<PermissionGroup, Integer>
-		implements PermissionGroupController {
+public class UserGroupControllerImpl extends SpringControllerImpl<UserGroup, Integer> implements
+		UserGroupController {
 
-	private PermissionGroupDAO dao;
+	private UserGroupDAO dao;
 
 	/**
 	 * Single constructor of this class.
 	 * 
-	 * @param dao an {@link PermissionGroupDAO}. It cannot be <code>null</code>.
+	 * @param dao an {@link UserGroupDAO}. It cannot be <code>null</code>.
 	 */
-	public PermissionGroupControllerImpl(PermissionGroupDAO dao) {
+	public UserGroupControllerImpl(UserGroupDAO dao) {
 		super(dao);
 		this.dao = dao;
 	}
 
-	public PermissionGroup findByName(String name) {
+	/**
+	 * Invokes <code>dao.findByName()<code>.
+	 * @param name a {@link String}.
+	 * @return a {@link UserGroup} or <code>null</code>.
+	 * @see br.com.arsmachina.authentication.dao.UserGroupDAO#findByName(java.lang.String)
+	 */
+	public UserGroup findByName(String name) {
 		return dao.findByName(name);
-	}
-
-	public List<PermissionGroup> findByUserGroup(UserGroup userGroup) {
-		return dao.findByUserGroup(userGroup);
 	}
 
 }

@@ -14,34 +14,21 @@
 
 package br.com.arsmachina.authentication.dao;
 
-import java.util.List;
-
-import br.com.arsmachina.authentication.entity.PermissionGroup;
 import br.com.arsmachina.authentication.entity.UserGroup;
 import br.com.arsmachina.dao.DAO;
 
 /**
- * Data access object (DAO) for {@link PermissionGroup}.
+ * Data access object (DAO) for {@link UserGroup}.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
-public interface PermissionGroupDAO extends DAO<PermissionGroup, Integer> {
+public interface UserGroupDAO extends DAO<UserGroup, Integer> {
 
 	/**
-	 * Returns the permission group with the given name or <code>null</code> if there is no such one.
-	 * 
+	 * Returns the user group with the given name or <code>null</code> if there is no such one.
 	 * @param name a {@link String}.
-	 * @return a {@link PermissionGroup} or <code>null</code>.
+	 * @return a {@link UserGroup} or <code>null</code>.
 	 */
-	public PermissionGroup findByName(String name);
+	public UserGroup findByName(String name);
 	
-	/**
-	 * Returns the permission groups that can be used by a given user group, including the shared 
-	 * ones.
-	 * 
-	 * @param name an {@link UserGroup}. It cannot be null. 
-	 * @return a {@link PermissionGroup} or <code>null</code>.
-	 */
-	public List<PermissionGroup> findByUserGroup(UserGroup userGroup);
-
 }

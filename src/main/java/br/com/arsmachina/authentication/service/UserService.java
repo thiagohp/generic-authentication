@@ -17,8 +17,8 @@ package br.com.arsmachina.authentication.service;
 import br.com.arsmachina.authentication.entity.User;
 
 /**
- * Service that provides a method, {@link #getUser()}, that returns the user using the application
- * in this thread.
+ * Service that provides a method, {@link #getUser()}, that returns the user
+ * using the application in this thread.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
@@ -30,11 +30,20 @@ public interface UserService {
 	 * @return an {@link User} or null.
 	 */
 	User getUser();
-	
+
 	/**
 	 * Tells if the user using this application in this thread is logged in.
+	 * 
 	 * @return a <code>boolean</code>.
 	 */
 	boolean isLoggedIn();
+
+	/**
+	 * Tells if the user using this application has a given permission.
+	 * 
+	 * @param permissionName a {@link String}. It cannot be null.
+	 * @return a <code>boolean</code>.
+	 */
+	boolean hasPermission(String permissionName);
 
 }

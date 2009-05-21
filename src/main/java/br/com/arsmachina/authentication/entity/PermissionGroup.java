@@ -25,6 +25,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -33,13 +34,16 @@ import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Size;
 
 /**
- * Class that represents a group of permissions.
+ * Class that represents a group of permissions. Each one can belong to an
+ * {@link UserGroup} or belong to all of them (<code>owner</code> property set
+ * to null).
  * 
  * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "permissiongroup")
-final public class PermissionGroup implements Comparable<Permission>, Serializable {
+final public class PermissionGroup implements Comparable<Permission>,
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,6 +67,10 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	private String name;
 
 	private List<Permission> permissions = new ArrayList<Permission>();
+
+	private PermissionGroup owner;
+
+	private boolean shared;
 
 	/**
 	 * No-arg constructor.
@@ -113,8 +121,7 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 			if (other.name != null) {
 				return false;
 			}
-		}
-		else if (!name.equals(other.name)) {
+		} else if (!name.equals(other.name)) {
 			return false;
 		}
 		return true;
@@ -183,6 +190,45 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	}
 
 	/**
+	 * Retorna o valor da propriedade <code>owner</code>.
+	 * 
+	 * @return o valor de <code>owner</code>.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	public PermissionGroup getOwner() {
+		return owner;
+	}
+
+	/**
+	 * Retorna o valor da propriedade <code>shared</code>.
+	 * 
+	 * @return o valor de <code>shared</code>.
+	 */
+	public boolean isShared() {
+		return shared;
+	}
+
+	/**
+	 * Altera o valor da propriedade <code>shared</code>.
+	 * 
+	 * @param <code>shared</code> o novo valor da propriedade
+	 *        <code>shared</code>.
+	 */
+	public void setShared(boolean shared) {
+		this.shared = shared;
+	}
+
+	/**
+	 * Altera o valor da propriedade <code>owner</code>.
+	 * 
+	 * @param <code>owner</code> o novo valor da propriedade <code>owner</code>.
+	 */
+	public void setOwner(PermissionGroup owner) {
+		this.owner = owner;
+	}
+
+	/**
 	 * Adds a permission to this group.
 	 * 
 	 * @param permission a {@link Permission}.
@@ -208,7 +254,8 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 	 * Changes the value of the <code>permissions</code> property.
 	 * 
 	 * @param permissions a {@link List<Permission>}.
-	 * @deprecated Use {@link #add(Permission)} and {@link #remove(Permission)} instead.
+	 * @deprecated Use {@link #add(Permission)} and {@link #remove(Permission)}
+	 *             instead.
 	 */
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
@@ -224,8 +271,7 @@ final public class PermissionGroup implements Comparable<Permission>, Serializab
 
 		boolean result = false;
 
-		outer:
-		for (Permission permission : permissions) {
+		outer: for (Permission permission : permissions) {
 
 			for (String permissionName : permissionNames) {
 

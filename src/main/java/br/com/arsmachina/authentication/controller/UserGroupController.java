@@ -14,35 +14,22 @@
 
 package br.com.arsmachina.authentication.controller;
 
-import java.util.List;
-
-import br.com.arsmachina.authentication.entity.PermissionGroup;
 import br.com.arsmachina.authentication.entity.UserGroup;
 import br.com.arsmachina.controller.Controller;
 
 /**
- * Controller definition for {@link PermissionGroup}.
+ * Controller definition for {@link UserGroup}.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
-public interface PermissionGroupController extends Controller<PermissionGroup, Integer> {
+public interface UserGroupController extends Controller<UserGroup, Integer> {
 
 	/**
-	 * Returns the permission group with the given name or <code>null</code> if there is no such
-	 * one.
+	 * Returns the user group with the given name or <code>null</code> if there is no such one.
 	 * 
 	 * @param name a {@link String}.
-	 * @return a {@link PermissionGroup} or <code>null</code>.
+	 * @return a {@link UserGroup} or <code>null</code>.
 	 */
-	public PermissionGroup findByName(String name);
-	
-	/**
-	 * Returns the permission groups that can be used by a given user group, including the shared 
-	 * ones.
-	 * 
-	 * @param name an {@link UserGroup}. It cannot be null. 
-	 * @return a {@link PermissionGroup} or <code>null</code>.
-	 */
-	public List<PermissionGroup> findByUserGroup(UserGroup userGroup);
+	public UserGroup findByName(String name);
 
 }
