@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -68,7 +69,7 @@ final public class PermissionGroup implements Comparable<Permission>,
 
 	private List<Permission> permissions = new ArrayList<Permission>();
 
-	private PermissionGroup owner;
+	private UserGroup owner;
 
 	private boolean shared;
 
@@ -194,9 +195,9 @@ final public class PermissionGroup implements Comparable<Permission>,
 	 * 
 	 * @return o valor de <code>owner</code>.
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
-	public PermissionGroup getOwner() {
+	public UserGroup getOwner() {
 		return owner;
 	}
 
@@ -224,7 +225,7 @@ final public class PermissionGroup implements Comparable<Permission>,
 	 * 
 	 * @param <code>owner</code> o novo valor da propriedade <code>owner</code>.
 	 */
-	public void setOwner(PermissionGroup owner) {
+	public void setOwner(UserGroup owner) {
 		this.owner = owner;
 	}
 
