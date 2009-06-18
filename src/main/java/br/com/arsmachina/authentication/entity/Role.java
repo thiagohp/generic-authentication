@@ -104,14 +104,14 @@ public abstract class Role implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (obj instanceof Role == false)
 			return false;
 		final Role other = (Role) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.getId() != null)
 				return false;
 		}
-		else if (!id.equals(other.id))
+		else if (!id.equals(other.getId()))
 			return false;
 		return true;
 	}
