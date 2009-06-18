@@ -139,7 +139,7 @@ final public class User implements Comparable<User>, Serializable {
 	 */
 	public void add(Role role) {
 
-		if (roles.contains(role) == false) {
+		if (hasRole(role.getClass()) == false) {
 			role.setUser(this);
 			roles.add(role);
 		}
