@@ -40,7 +40,12 @@ final public class Permission implements Comparable<Permission>, Serializable {
 	 * Name of the role that all users have.
 	 */
 	public static final String USER_ROLE_NAME = "ROLE_USER"; 
-	
+
+	/**
+	 * Name of the administrator role.
+	 */
+	public static final String ADMINISTRATOR_ROLE_NAME = "ROLE_ADMIN";
+
 	/**
 	 * Minimum name length.
 	 */
