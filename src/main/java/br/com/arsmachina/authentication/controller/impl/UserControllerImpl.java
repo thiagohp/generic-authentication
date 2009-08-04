@@ -19,11 +19,11 @@ import java.util.Random;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.arsmachina.authentication.controller.PasswordEncrypter;
 import br.com.arsmachina.authentication.controller.PermissionController;
 import br.com.arsmachina.authentication.controller.PermissionGroupController;
 import br.com.arsmachina.authentication.controller.UserController;
 import br.com.arsmachina.authentication.dao.UserDAO;
+import br.com.arsmachina.authentication.encryption.PasswordEncrypter;
 import br.com.arsmachina.authentication.entity.Permission;
 import br.com.arsmachina.authentication.entity.PermissionGroup;
 import br.com.arsmachina.authentication.entity.Role;
@@ -35,8 +35,8 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
  * 
  * @author Thiago H. de Paula Figueiredo
  */
-public class UserControllerImpl extends SpringControllerImpl<User, Integer>
-		implements UserController {
+public class UserControllerImpl extends SpringControllerImpl<User, Integer> implements
+		UserController {
 
 	private Random random = new Random();
 
@@ -54,12 +54,10 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 	 * Single constructor of this class.
 	 * 
 	 * @param dao an {@link UserDAO}. It cannot be <code>null</code>.
-	 * @param passwordEncrypter a {@link PasswordEncrypter}. It cannot be
-	 *            <code>null</code>.
-	 * @param permissionController a {@link PermissionController}. It cannot be
-	 *            <code>null</code>. .
-	 * @param permissionGroupController a {@link PermissionGroupController}. It
-	 *            cannot be <code>null</code>.
+	 * @param passwordEncrypter a {@link PasswordEncrypter}. It cannot be <code>null</code>.
+	 * @param permissionController a {@link PermissionController}. It cannot be <code>null</code>. .
+	 * @param permissionGroupController a {@link PermissionGroupController}. It cannot be
+	 * <code>null</code>.
 	 */
 	public UserControllerImpl(UserDAO dao, PasswordEncrypter passwordEncrypter,
 			PermissionController permissionController,
@@ -69,18 +67,15 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 		this.dao = dao;
 
 		if (permissionController == null) {
-			throw new IllegalArgumentException(
-					"Parameter permissionController cannot be null");
+			throw new IllegalArgumentException("Parameter permissionController cannot be null");
 		}
 
 		if (permissionGroupController == null) {
-			throw new IllegalArgumentException(
-					"Parameter permissionGroupController cannot be null");
+			throw new IllegalArgumentException("Parameter permissionGroupController cannot be null");
 		}
 
 		if (passwordEncrypter == null) {
-			throw new IllegalArgumentException(
-					"Parameter passwordEncrypter cannot be null");
+			throw new IllegalArgumentException("Parameter passwordEncrypter cannot be null");
 		}
 
 		this.permissionController = permissionController;
@@ -95,8 +90,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 	 * @param permissionController a {@link PermissionController}.
 	 * @param permissionGroupController a {@link PermissionGroupController}.
 	 */
-	private void ensureBasicPermissionsExist(
-			PermissionController permissionController,
+	private void ensureBasicPermissionsExist(PermissionController permissionController,
 			PermissionGroupController permissionGroupController) {
 
 		final String roleName = Permission.USER_ROLE_NAME;
@@ -110,8 +104,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 
 		}
 
-		final String groupName =
-			PermissionGroup.ALL_USERS_PERMISSION_GROUP_NAME;
+		final String groupName = PermissionGroup.ALL_USERS_PERMISSION_GROUP_NAME;
 		PermissionGroup group = permissionGroupController.findByName(groupName);
 
 		if (group == null) {
@@ -147,17 +140,18 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 	public void save(User user) {
 
 		if (allUsersPermissionGroup == null) {
-			ensureBasicPermissionsExist(permissionController,
-					permissionGroupController);
+			ensureBasicPermissionsExist(permissionController, permissionGroupController);
 		}
+
+		br.com.arsmachina.authentication.entity.User entity = (br.com.arsmachina.authentication.entity.User) user;
 
 		if (user.getPermissionGroups().contains(allUsersPermissionGroup) == false) {
-			user.add(allUsersPermissionGroup);
+			entity.add(allUsersPermissionGroup);
 		}
 
-		setPasswordIfNeeded(user);
+		setPasswordIfNeeded(entity);
 
-		encryptPassword(user);
+		encryptPassword(entity);
 
 		super.save(user);
 
@@ -167,7 +161,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 	@Transactional
 	public User update(User user) {
 
-		encryptPassword(user);
+		encryptPassword((br.com.arsmachina.authentication.entity.User) user);
 		return super.update(user);
 
 	}
@@ -186,7 +180,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 		return dao.hasUserWithLogin(login);
 	}
 
-	private void encryptPassword(User user) {
+	private void encryptPassword(br.com.arsmachina.authentication.entity.User user) {
 
 		String password = user.getPassword();
 		password = passwordEncrypter.encrypt(password);
@@ -197,14 +191,29 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer>
 	/**
 	 * Creates a temporary throw-away random password if it was not set yet.
 	 * 
-	 * @param user an {@link User}.
+	 * @param user an {@link br.com.arsmachina.authentication.entity.User}.
 	 */
-	private void setPasswordIfNeeded(User user) {
+	private void setPasswordIfNeeded(br.com.arsmachina.authentication.entity.User user) {
 
 		if (user.getPassword() == null) {
 			user.setPassword(Integer.toHexString(random.nextInt()));
 		}
 
+	}
+
+	@Override
+	public User reattach(User user) {
+		
+		user = super.reattach(user);
+		
+		final List<PermissionGroup> permissionGroups = user.getPermissionGroups();
+		
+		for (PermissionGroup permissionGroup : permissionGroups) {
+			permissionGroupController.reattach(permissionGroup);
+		}
+		
+		return user;
+		
 	}
 
 }

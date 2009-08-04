@@ -20,7 +20,6 @@ import br.com.arsmachina.authentication.entity.Role;
 import br.com.arsmachina.authentication.entity.User;
 import br.com.arsmachina.dao.DAO;
 
-
 /**
  * Data access object (DAO) for {@link User}.
  * 
@@ -29,8 +28,8 @@ import br.com.arsmachina.dao.DAO;
 public interface UserDAO extends DAO<User, Integer> {
 
 	/**
-	 * Returns the user with a given login and password or <code>null</code> if no such
-	 * user exists.
+	 * Returns the user with a given login and password or <code>null</code> if no such user exists.
+	 * If encryption is used, the password parameter must be passed already encoded.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @param password a <code>String</code>.
@@ -39,8 +38,7 @@ public interface UserDAO extends DAO<User, Integer> {
 	User findByLoginAndPassword(String login, String password);
 
 	/**
-	 * Returns the user with a given login or <code>null</code> if no such
-	 * user exists.
+	 * Returns the user with a given login or <code>null</code> if no such user exists.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return an {@link User}.
@@ -48,8 +46,8 @@ public interface UserDAO extends DAO<User, Integer> {
 	User findByLogin(String login);
 
 	/**
-	 * Loads the user and their permissions with a given login or <code>null</code> if no such
-	 * user exists. This method prefetches the user's permissions.
+	 * Loads the user and their permissions with a given login or <code>null</code> if no such user
+	 * exists. This method prefetches the user's permissions.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return an {@link User}.
@@ -57,8 +55,8 @@ public interface UserDAO extends DAO<User, Integer> {
 	User loadForAuthentication(String login);
 
 	/**
-	 * Loads the user and their permissions with a given login or <code>null</code> if no such
-	 * user exists. This method prefetches the user's permissions and roles.
+	 * Loads the user and their permissions with a given login or <code>null</code> if no such user
+	 * exists. This method prefetches the user's permissions and roles.
 	 * 
 	 * @param login a <code>String</code>.
 	 * @return an {@link User}.
@@ -67,14 +65,15 @@ public interface UserDAO extends DAO<User, Integer> {
 
 	/**
 	 * Returns all users with a given {@link Role} subclass.
-	 *  
+	 * 
 	 * @param role a {@link Class}. It must be a {@link Role} subclass and cannot be null.
 	 * @return a {@link List} of {@link User}s.
 	 */
 	<T extends Role> List<User> findByRole(Class<T> roleClass);
-	
+
 	/**
-	 * Tells if some user with a given login exists. 
+	 * Tells if some user with a given login exists.
+	 * 
 	 * @param login a {@link String}. It cannot be null.
 	 * 
 	 * @return a <code>boolean</code>.

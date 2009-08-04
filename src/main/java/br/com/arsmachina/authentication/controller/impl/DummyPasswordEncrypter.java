@@ -14,7 +14,7 @@
 
 package br.com.arsmachina.authentication.controller.impl;
 
-import br.com.arsmachina.authentication.controller.PasswordEncrypter;
+import br.com.arsmachina.authentication.encryption.PasswordEncrypter;
 
 /**
  * {@link PasswordEncrypter} implementation that does not really encrypt passwords.
@@ -28,7 +28,7 @@ public class DummyPasswordEncrypter implements PasswordEncrypter {
 	 * 
 	 * @param password a {@link String}.
 	 * @return <code>password</code>.
-	 * @see br.com.arsmachina.authentication.controller.PasswordEncrypter#encrypt(java.lang.String)
+	 * @see br.com.arsmachina.authentication.encryption.PasswordEncrypter#encrypt(java.lang.String)
 	 */
 	public String encrypt(String password) {
 		return password;

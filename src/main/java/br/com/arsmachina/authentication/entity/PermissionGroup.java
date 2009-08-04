@@ -30,6 +30,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Size;
@@ -43,6 +45,7 @@ import org.hibernate.validator.Size;
  */
 @Entity
 @Table(name = "permissiongroup")
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
 final public class PermissionGroup implements Comparable<Permission>,
 		Serializable {
 
@@ -186,6 +189,7 @@ final public class PermissionGroup implements Comparable<Permission>,
 	@JoinTable(name = "permissiongroup_permission", joinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false))
 	@OrderBy("name asc")
 	@Size(min = 1, max = 100)
+	@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
 	public List<Permission> getPermissions() {
 		return permissions;
 	}

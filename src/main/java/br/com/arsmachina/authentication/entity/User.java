@@ -35,21 +35,22 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.Email;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
 /**
- * Class that represents an application user. Each user can belong to any number of
- * {@link Permission}s. When a given user belongs to a {@link Permission}, but cannot be granted
- * some {@link Permission} in that group, this permission must be added to the list of removed
- * permissions (<code>removedPermissions</code> property).
+ * Default {@link br.com.arsmachina.authentication.AbstractUser} implementation as a Hibernate/JPA
+ * entity.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "`user`")
-final public class User implements Comparable<User>, Serializable {
+final public class User implements br.com.arsmachina.authentication.AbstractUser, Comparable<User>,
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -146,13 +147,6 @@ final public class User implements Comparable<User>, Serializable {
 
 	}
 
-	/**
-	 * Tells if this user has some a given role type.
-	 * 
-	 * @param <R> a {@link Role} subclass.
-	 * @param roleClass a {@link Class}.
-	 * @return a <code>boolean</code>.
-	 */
 	public <R extends Role> boolean hasRole(Class<R> roleClass) {
 		return getRole(roleClass) != null;
 	}
@@ -182,26 +176,21 @@ final public class User implements Comparable<User>, Serializable {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (obj instanceof br.com.arsmachina.authentication.AbstractUser == false) {
 			return false;
 		}
-		User other = (User) obj;
-		if (login == null) {
-			if (other.login != null) {
+		br.com.arsmachina.authentication.AbstractUser other = (User) obj;
+		if (getLogin() == null) {
+			if (other.getLogin() != null) {
 				return false;
 			}
 		}
-		else if (!login.equals(other.login)) {
+		else if (!getLogin().equals(other.getLogin())) {
 			return false;
 		}
 		return true;
 	}
 
-	/**
-	 * Returns the value of the <code>email</code> property.
-	 * 
-	 * @return a {@link String}.
-	 */
 	@Column(length = MAXIMUM_EMAIL_LENGTH)
 	@Email
 	@Length(min = User.MINIMUM_EMAIL_LENGTH, max = User.MAXIMUM_EMAIL_LENGTH)
@@ -220,11 +209,6 @@ final public class User implements Comparable<User>, Serializable {
 		return id;
 	}
 
-	/**
-	 * Returns the value of the <code>login</code> property.
-	 * 
-	 * @return a {@link String}.
-	 */
 	@Column(nullable = false, unique = true, length = MAXIMUM_LOGIN_LENGTH)
 	@NotNull
 	@Length(min = User.MINIMUM_LOGIN_LENGTH, max = User.MAXIMUM_LOGIN_LENGTH)
@@ -232,11 +216,6 @@ final public class User implements Comparable<User>, Serializable {
 		return login;
 	}
 
-	/**
-	 * Returns the value of the <code>name</code> property.
-	 * 
-	 * @return a {@link String}.
-	 */
 	@Column(nullable = false, length = MAXIMUM_NAME_LENGTH)
 	@NotNull
 	@Length(min = User.MINIMUM_NAME_LENGTH, max = User.MAXIMUM_NAME_LENGTH)
@@ -244,11 +223,6 @@ final public class User implements Comparable<User>, Serializable {
 		return name;
 	}
 
-	/**
-	 * Returns the value of the <code>password</code> property.
-	 * 
-	 * @return a {@link String}.
-	 */
 	@Column(nullable = false, length = MAXIMUM_PASSWORD_LENGTH)
 	@NotNull
 	@Length(min = User.MINIMUM_PASSWORD_LENGTH, max = User.MAXIMUM_PASSWORD_LENGTH)
@@ -256,25 +230,14 @@ final public class User implements Comparable<User>, Serializable {
 		return password;
 	}
 
-	/**
-	 * Returns the value of the <code>permissionGroups</code> property.
-	 * 
-	 * @return a {@link List<PermissionGroup>}.
-	 */
 	@ManyToMany
 	@OrderBy("name asc")
 	@JoinTable(name = "user_permissiongroup", joinColumns = @JoinColumn(name = "user_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "permissiongroup_id", nullable = false))
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
 	public List<PermissionGroup> getPermissionGroups() {
 		return permissionGroups;
 	}
 
-	/**
-	 * Returns an unmodifiable list containing all the permissions granted to this user. It is
-	 * comprised by the sum of all permissions in its permission groups, except the ones in its
-	 * removed permissions list.
-	 * 
-	 * @return a {@link List} of {@link Permission}s.
-	 */
 	@Transient
 	final public List<Permission> getPermissions() {
 
@@ -308,18 +271,11 @@ final public class User implements Comparable<User>, Serializable {
 	@ManyToMany
 	@OrderBy("name asc")
 	@JoinTable(name = "user_removedpermission", joinColumns = @JoinColumn(name = "user_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false))
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
 	public List<Permission> getRemovedPermissions() {
 		return removedPermissions;
 	}
 
-	/**
-	 * Given a {@link Class} object, returns the corresponding {@link Role} instance or null if this
-	 * user has no such role.
-	 * 
-	 * @param <T> a {@link Role} subclass.
-	 * @param clasz a {@link Class<T>}.
-	 * @return a {@link #T}.
-	 */
 	@SuppressWarnings("unchecked")
 	public final <T extends Role> T getRole(Class<T> clasz) {
 
@@ -336,28 +292,18 @@ final public class User implements Comparable<User>, Serializable {
 
 	}
 
-	/**
-	 * Returns the value of the <code>roles</code> property.
-	 * 
-	 * @return a {@link List<Role>}.
-	 */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
 	public List<Role> getRoles() {
 		return roles;
 	}
 
-	/**
-	 * Tells if this user has at least one of a set of permissions.
-	 * 
-	 * @param permissionName an array of {@link String}s.
-	 * @return a <code>boolean</code>.
-	 */
 	public boolean hasPermission(String... permissionNames) {
 
 		boolean result = false;
 
 		for (PermissionGroup permissionGroup : permissionGroups) {
-			
+
 			if (permissionGroup.hasPermission(permissionNames)) {
 				result = true;
 				break;
@@ -374,47 +320,22 @@ final public class User implements Comparable<User>, Serializable {
 		return login != null ? login.hashCode() : super.hashCode();
 	}
 
-	/**
-	 * Is this user's credentials expired?
-	 * 
-	 * @return a {@link boolean}.
-	 */
 	public boolean isCredentialsExpired() {
 		return credentialsExpired;
 	}
 
-	/**
-	 * Is this user's account enabled?.
-	 * 
-	 * @return a {@link boolean}.
-	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * Is this user's account expired?
-	 * 
-	 * @return a {@link boolean}.
-	 */
 	public boolean isExpired() {
 		return expired;
 	}
 
-	/**
-	 * Is this user's account locked?
-	 * 
-	 * @return a {@link boolean}.
-	 */
 	public boolean isLocked() {
 		return locked;
 	}
 
-	/**
-	 * Is this user's logged in now?
-	 * 
-	 * @return a {@link boolean}.
-	 */
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}

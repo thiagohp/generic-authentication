@@ -17,8 +17,8 @@ package br.com.arsmachina.authentication.service;
 import br.com.arsmachina.authentication.entity.User;
 
 /**
- * Service that provides a method, {@link #getUser()}, that returns the user
- * using the application in this thread.
+ * Service that provides a method, {@link #getUser()}, that returns the user using the application
+ * in this thread.
  * 
  * @author Thiago H. de Paula Figueiredo
  */
@@ -32,6 +32,13 @@ public interface UserService {
 	User getUser();
 
 	/**
+	 * Sets the logged in user.
+	 * 
+	 * @param user an {@link User}. It cannot be null.
+	 */
+	void setUser(User user);
+
+	/**
 	 * Tells if the user using this application in this thread is logged in.
 	 * 
 	 * @return a <code>boolean</code>.
@@ -39,11 +46,35 @@ public interface UserService {
 	boolean isLoggedIn();
 
 	/**
-	 * Tells if the user using this application has a given permission.
+	 * Tells if the user using this application has a given permission. Unlogged users have no
+	 * permissions.
 	 * 
 	 * @param permissionName a {@link String}. It cannot be null.
 	 * @return a <code>boolean</code>.
 	 */
 	boolean hasPermission(String permissionName);
+
+	/**
+	 * Tells if the user using this application has at least one of the given permissions. Unlogged
+	 * users have no permissions.
+	 * 
+	 * @param permissionNames an array of {@link String}s. It cannot be null.
+	 * @return a <code>boolean</code>.
+	 */
+	boolean hasPermissions(String... permissionNames);
+
+	/**
+	 * Tells if the user using this application has all the given permissions. Unlogged users have
+	 * no permissions.
+	 * 
+	 * @param permissionNames an array of {@link String}s. It cannot be null.
+	 * @return a <code>boolean</code>.
+	 */
+	boolean hasAllPermissions(String... permissionNames);
+	
+	/**
+	 * Unlogs the current user.
+	 */
+	void logout();
 
 }

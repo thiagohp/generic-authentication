@@ -22,6 +22,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
@@ -32,6 +34,7 @@ import org.hibernate.validator.NotNull;
  */
 @Entity
 @Table(name = "permission")
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
 final public class Permission implements Comparable<Permission>, Serializable {
 
 	private static final long serialVersionUID = 1L;

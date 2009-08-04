@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package br.com.arsmachina.authentication.controller;
+package br.com.arsmachina.authentication.encryption;
 
 /**
  * Interface used to encrypt passwords. It is recommended to use a secure cryptographic hash
