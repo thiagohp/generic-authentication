@@ -1,4 +1,4 @@
-// Copyright 2008 Thiago H. de Paula Figueiredo
+// Copyright 2008-2009 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,6 +49,7 @@ import org.hibernate.validator.NotNull;
  */
 @Entity
 @Table(name = "`user`")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 final public class User implements br.com.arsmachina.authentication.AbstractUser, Comparable<User>,
 		Serializable {
 
@@ -293,7 +294,7 @@ final public class User implements br.com.arsmachina.authentication.AbstractUser
 	}
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "permission")
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "user")
 	public List<Role> getRoles() {
 		return roles;
 	}

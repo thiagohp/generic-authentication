@@ -1,4 +1,4 @@
-// Copyright 2008 Thiago H. de Paula Figueiredo
+// Copyright 2008-2009 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.NotNull;
 
 /**
@@ -38,6 +40,7 @@ import org.hibernate.validator.NotNull;
 @Entity
 @Table(name = "`role`")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 public abstract class Role implements Serializable {
 
 	private static final long serialVersionUID = 1L;
