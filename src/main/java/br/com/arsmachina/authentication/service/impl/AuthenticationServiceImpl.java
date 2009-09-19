@@ -106,8 +106,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		
 		if (loggedIn == false) {
-			user.setLoggedIn(true);
-			userController.update(user);
+			userController.markLoggedIn(user);
 		}
 		
 		userService.setUser(user);
