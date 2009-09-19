@@ -1,4 +1,4 @@
-// Copyright 2008 Thiago H. de Paula Figueiredo
+// Copyright 2008-2009 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,6 +37,8 @@ import br.com.arsmachina.controller.impl.SpringControllerImpl;
  */
 public class UserControllerImpl extends SpringControllerImpl<User, Integer> implements
 		UserController {
+
+	final private static int GENERATED_PASSWORD_LENGTH = 7;
 
 	private Random random = new Random();
 
@@ -176,7 +178,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 	}
 
 	@Transactional(readOnly = true)
-	public boolean hasUserWithLogin(String login) {
+	public boolean existsUserWithLogin(String login) {
 		return dao.hasUserWithLogin(login);
 	}
 
@@ -203,16 +205,59 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 	@Override
 	public User reattach(User user) {
-		
+
 		user = super.reattach(user);
-		
+
 		final List<PermissionGroup> permissionGroups = user.getPermissionGroups();
-		
+
 		for (PermissionGroup permissionGroup : permissionGroups) {
 			permissionGroupController.reattach(permissionGroup);
 		}
-		
+
 		return user;
+
+	}
+
+	@Override
+	public void markLoggedIn(User user) {
+		dao.markLoggedIn(user);
+	}
+
+	@Override
+	public void markLoggedOut(User user) {
+		dao.markLoggedOut(user);
+	}
+
+	@Transactional
+	@Override
+	public String setRandomPassword(User user) {
+
+		if (user == null) {
+			throw new IllegalArgumentException("Parameter user cannot be null.");
+		}
+
+		String password = generateRandomPassword();
+		user.setPassword(password);
+
+		update(user);
+
+		return password;
+
+	}
+
+	@Override
+	public String generateRandomPassword() {
+		
+		StringBuilder builder = new StringBuilder(GENERATED_PASSWORD_LENGTH);
+
+		for (int i = 0; i < GENERATED_PASSWORD_LENGTH; i++) {
+
+			char c = (char) (random.nextInt(26) + 'a');
+			builder.append(c);
+
+		}
+
+		return builder.toString();
 		
 	}
 

@@ -1,4 +1,4 @@
-// Copyright 2008 Thiago H. de Paula Figueiredo
+// Copyright 2008-2009 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -81,6 +81,35 @@ public interface UserController extends Controller<User, Integer> {
 	 * 
 	 * @return a <code>boolean</code>.
 	 */
-	boolean hasUserWithLogin(String login);
+	boolean existsUserWithLogin(String login);
+	
+	/**
+	 * Mark an {@link User} as logged in.
+	 * 
+	 * @param user an {@link User}. It cannot be null.
+	 */
+	void markLoggedIn(User user);
 
+	/**
+	 * Mark an {@link User} as logged out.
+	 * 
+	 * @param user an {@link User}. It cannot be null.
+	 */
+	void markLoggedOut(User user);
+	
+	/**
+	 * Changes the password of a given user to a randomly-generated one.
+	 * 
+	 * @param user an {@link User}. It cannot be null.
+	 * @return the generated password.
+	 */
+	String setRandomPassword(User user);
+	
+	/**
+	 * Generates a random password.
+	 * 
+	 * @return a {@link String}.
+	 */
+	String generateRandomPassword();
+	
 }
