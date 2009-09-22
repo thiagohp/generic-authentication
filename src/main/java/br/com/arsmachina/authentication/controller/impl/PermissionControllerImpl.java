@@ -14,6 +14,8 @@
 
 package br.com.arsmachina.authentication.controller.impl;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.arsmachina.authentication.controller.PermissionController;
 import br.com.arsmachina.authentication.dao.PermissionDAO;
 import br.com.arsmachina.authentication.entity.Permission;
@@ -45,6 +47,7 @@ public class PermissionControllerImpl extends SpringControllerImpl<Permission, I
 	 * @return a {@link Permission} or <code>null</code>.
 	 * @see br.com.arsmachina.authentication.dao.PermissionDAO#findByName(java.lang.String)
 	 */
+	@Transactional(readOnly = true)
 	public Permission findByName(String name) {
 		return dao.findByName(name);
 	}

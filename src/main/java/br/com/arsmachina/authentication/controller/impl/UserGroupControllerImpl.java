@@ -14,6 +14,8 @@
 
 package br.com.arsmachina.authentication.controller.impl;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.arsmachina.authentication.controller.UserGroupController;
 import br.com.arsmachina.authentication.dao.UserGroupDAO;
 import br.com.arsmachina.authentication.entity.UserGroup;
@@ -45,6 +47,7 @@ public class UserGroupControllerImpl extends SpringControllerImpl<UserGroup, Int
 	 * @return a {@link UserGroup} or <code>null</code>.
 	 * @see br.com.arsmachina.authentication.dao.UserGroupDAO#findByName(java.lang.String)
 	 */
+	@Transactional
 	public UserGroup findByName(String name) {
 		return dao.findByName(name);
 	}

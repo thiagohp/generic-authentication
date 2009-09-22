@@ -173,6 +173,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 		return dao.loadForAuthentication(login);
 	}
 
+	@Transactional(readOnly = true)
 	public User loadEverything(String login) {
 		return dao.loadEverything(login);
 	}
@@ -203,6 +204,7 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 	}
 
+	@Transactional
 	@Override
 	public User reattach(User user) {
 
@@ -218,11 +220,13 @@ public class UserControllerImpl extends SpringControllerImpl<User, Integer> impl
 
 	}
 
+	@Transactional
 	@Override
 	public void markLoggedIn(User user) {
 		dao.markLoggedIn(user);
 	}
 
+	@Transactional
 	@Override
 	public void markLoggedOut(User user) {
 		dao.markLoggedOut(user);

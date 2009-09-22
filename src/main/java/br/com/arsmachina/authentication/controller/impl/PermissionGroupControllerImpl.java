@@ -16,6 +16,8 @@ package br.com.arsmachina.authentication.controller.impl;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.arsmachina.authentication.controller.PermissionGroupController;
 import br.com.arsmachina.authentication.dao.PermissionGroupDAO;
 import br.com.arsmachina.authentication.entity.PermissionGroup;
@@ -42,10 +44,12 @@ public class PermissionGroupControllerImpl extends SpringControllerImpl<Permissi
 		this.dao = dao;
 	}
 
+	@Transactional(readOnly = true)
 	public PermissionGroup findByName(String name) {
 		return dao.findByName(name);
 	}
 
+	@Transactional(readOnly = true)
 	public List<PermissionGroup> findByUserGroup(UserGroup userGroup) {
 		return dao.findByUserGroup(userGroup);
 	}
