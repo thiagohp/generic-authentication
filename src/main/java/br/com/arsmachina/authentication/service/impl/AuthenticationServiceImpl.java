@@ -88,9 +88,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throw new BadCredentialsException();
 		}
 
-		if (user.isCredentialsExpired()) {
-			throw new ExpiredUserException();
-		}
+		verifyExpired(user);
 
 		if (user.isLocked()) {
 			throw new LockedUserException();
@@ -101,6 +99,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 
 		final boolean loggedIn = user.isLoggedIn();
+		
 		if (allowSimultaneousLogins == false && loggedIn) {
 			throw new SimultaneousLoginForbiddenException();
 		}
@@ -113,6 +112,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 		return user;
 
+	}
+
+	/**
+	 * Verifies if the given user is expired.
+	 * 
+	 * @param user an {@link User}.
+	 * @throws ExpiredUserException if the user is expired.
+	 */
+	protected void verifyExpired(final User user) {
+		
+		if (user.isExpired()) {
+			throw new ExpiredUserException();
+		}
+		
 	}
 
 }
